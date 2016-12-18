@@ -156,11 +156,42 @@ public class StatusBarFits {
      * @param activity 需要设置的activity
      */
     public static void setTransparent(Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        if (decorView.getChildAt(0) == null) {
             return;
         }
-        transparentStatusBar(activity);
-        setFitsSystemWindows(activity);
+        if (decorView.getChildAt(0) instanceof DrawerLayout) {
+            DrawerLayout drawerLayout = (DrawerLayout) decorView.getChildAt(0);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            } else {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+
+            ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
+            // 内容布局不是 LinearLayout 时,设置padding top
+            if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
+                contentLayout.getChildAt(1).setPadding(0, getStatusBarHeight(activity), 0, 0);
+            }
+
+            // 设置属性
+            setDrawerLayoutProperty(drawerLayout, contentLayout);
+
+        } else if (decorView.getChildAt(0) instanceof CoordinatorLayout) {
+
+
+        } else {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                return;
+            }
+            transparentStatusBar(activity);
+            setFitsSystemWindows(activity);
+        }
     }
 
     /**
