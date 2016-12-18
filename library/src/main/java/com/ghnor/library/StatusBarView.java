@@ -10,7 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import static com.ghnor.library.Utils.getStatusBarHeight;
 
@@ -48,8 +48,8 @@ public class StatusBarView extends View {
     public static StatusBarView createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
         // 绘制一个和状态栏一样高的矩形
         StatusBarView statusBarView = new StatusBarView(activity);
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(Utils.calculateStatusColor(color, alpha));
         return statusBarView;
@@ -64,8 +64,8 @@ public class StatusBarView extends View {
     public static StatusBarView createTranslucentStatusBarView(Activity activity, int alpha) {
         // 绘制一个和状态栏一样高的矩形
         StatusBarView statusBarView = new StatusBarView(activity);
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+        FrameLayout.LayoutParams params =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
         return statusBarView;
