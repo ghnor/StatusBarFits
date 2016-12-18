@@ -80,9 +80,11 @@ public class StatusBarFits {
             }
             // 内容布局不是 LinearLayout 时,设置padding top
             if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
-                contentLayout.getChildAt(1)
-                        .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight(activity) + contentLayout.getPaddingTop(),
-                                contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
+                contentLayout.getChildAt(1).setPadding(
+                        contentLayout.getPaddingLeft(),
+                        getStatusBarHeight(activity) + contentLayout.getPaddingTop(),
+                        contentLayout.getPaddingRight(),
+                        contentLayout.getPaddingBottom());
             }
             // 设置属性
             setDrawerLayoutProperty(drawerLayout, contentLayout);
@@ -92,12 +94,7 @@ public class StatusBarFits {
 
 
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 int count = decorView.getChildCount();
                 if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
                     decorView.getChildAt(count - 1)
