@@ -1,6 +1,7 @@
 package com.ghnor.library;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.ColorInt;
 
 /**
@@ -37,6 +38,24 @@ public class Utils {
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
         return 0xff << 24 | red << 16 | green << 8 | blue;
+    }
+
+    /**
+     * 获取状态栏默认的颜色
+     * 1. 在5.0及以下即colorPrimaryDark
+     * 2. 在4.4及以下默认黑色
+     */
+    private static final int[] THEME_ATTRS = {
+            android.R.attr.colorPrimaryDark
+    };
+
+    public static int getDefaultStatusBarBackground(Context context) {
+        final TypedArray a = context.obtainStyledAttributes(THEME_ATTRS);
+        try {
+            return a.getColor(0, 0xff000000);
+        } finally {
+            a.recycle();
+        }
     }
 
 }
