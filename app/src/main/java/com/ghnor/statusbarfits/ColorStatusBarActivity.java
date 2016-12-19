@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.jaeger.library.StatusBarUtil;
+import com.ghnor.library.StatusBarFits;
 
 import java.util.Random;
 
@@ -47,7 +47,7 @@ public class ColorStatusBarActivity extends BaseActivity {
                 Random random = new Random();
                 mColor = 0xff000000 | random.nextInt(0xffffff);
                 mToolbar.setBackgroundColor(mColor);
-                StatusBarUtil.setColor(ColorStatusBarActivity.this, mColor, mAlpha);
+                StatusBarFits.setColor(ColorStatusBarActivity.this, mColor, mAlpha);
             }
         });
 
@@ -56,7 +56,7 @@ public class ColorStatusBarActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlpha = progress;
-                StatusBarUtil.setColor(ColorStatusBarActivity.this, mColor, mAlpha);
+                StatusBarFits.setColor(ColorStatusBarActivity.this, mColor, mAlpha);
                 mTvStatusAlpha.setText(String.valueOf(mAlpha));
             }
 
@@ -70,13 +70,13 @@ public class ColorStatusBarActivity extends BaseActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
+        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 
     @Override
     protected void setStatusBar() {
         mColor = getResources().getColor(R.color.colorPrimary);
-        StatusBarUtil.setColor(this, mColor);
+        StatusBarFits.setColor(this, mColor);
     }
 
     @Override

@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.jaeger.library.StatusBarUtil;
-import com.r0adkll.slidr.Slidr;
+import com.ghnor.library.StatusBarFits;
 
 /**
  * Created by ghnor on 16/12/12.
@@ -27,7 +26,7 @@ public class ImageViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
         // 设置右滑动返回
-        Slidr.attach(this);
+//        Slidr.attach(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewNeedOffset = findViewById(R.id.view_need_offset);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
@@ -43,7 +42,7 @@ public class ImageViewActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlpha = progress;
-                StatusBarUtil.setTranslucentForImageView(ImageViewActivity.this, mAlpha, mViewNeedOffset);
+//                StatusBarFits.setTranslucentForImageView(ImageViewActivity.this, mAlpha, mViewNeedOffset);
                 mTvStatusAlpha.setText(String.valueOf(mAlpha));
             }
 
@@ -57,13 +56,13 @@ public class ImageViewActivity extends BaseActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
+        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 
     @Override
     protected void setStatusBar() {
         mViewNeedOffset = findViewById(R.id.view_need_offset);
-        StatusBarUtil.setTranslucentForImageView(this, mViewNeedOffset);
+//        StatusBarFits.setTranslucentForImageView(this, mViewNeedOffset);
     }
 
     @Override

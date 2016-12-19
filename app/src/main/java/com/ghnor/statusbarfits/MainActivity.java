@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.ghnor.library.StatusBarFits;
+
 /**
  * Created by ghnor on 16/12/14.
  */
@@ -31,7 +33,7 @@ public class MainActivity extends BaseActivity {
     private TextView mTvStatusAlpha;
 
     private int mStatusBarColor;
-    private int mAlpha = StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA;
+    private int mAlpha = StatusBarFits.DEFAULT_STATUS_BAR_ALPHA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +114,12 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 if (mChbTranslucent.isChecked()) {
                     contentLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_monkey));
-                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout, mAlpha);
+                    StatusBarFits.setTranslucent(MainActivity.this, mAlpha);
                     mToolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 } else {
                     contentLayout.setBackgroundDrawable(null);
                     mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout,
+                    StatusBarFits.setColor(MainActivity.this,
                         getResources().getColor(R.color.colorPrimary), mAlpha);
                 }
             }
@@ -129,9 +131,9 @@ public class MainActivity extends BaseActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlpha = progress;
                 if (mChbTranslucent.isChecked()) {
-                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout, mAlpha);
+                    StatusBarFits.setTranslucent(MainActivity.this, mAlpha);
                 } else {
-                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, mStatusBarColor, mAlpha);
+//                    StatusBarFits.setColorFor(MainActivity.this, mStatusBarColor, mAlpha);
                 }
                 mTvStatusAlpha.setText(String.valueOf(mAlpha));
             }
@@ -146,12 +148,12 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
+        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 
     @Override
     protected void setStatusBar() {
         mStatusBarColor = getResources().getColor(R.color.colorPrimary);
-        StatusBarUtil.setColorForDrawerLayout(this, (DrawerLayout) findViewById(R.id.drawer_layout), mStatusBarColor, mAlpha);
+        StatusBarFits.setColor(this, mStatusBarColor, mAlpha);
     }
 }

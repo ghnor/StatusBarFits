@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.jaeger.library.StatusBarUtil;
+import com.ghnor.library.StatusBarFits;
 
 /**
  * Created by ghnor on 16/12/14.
@@ -57,9 +57,9 @@ public class ImageStatusBarActivity extends BaseActivity {
     @Override
     protected void setStatusBar() {
         if (isTransparent) {
-            StatusBarUtil.setTransparent(this);
+            StatusBarFits.setTransparent(this);
         } else {
-            StatusBarUtil.setTranslucent(this, StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
+            StatusBarFits.setTranslucent(this, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
         }
     }
 
@@ -69,7 +69,7 @@ public class ImageStatusBarActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlpha = progress;
-                StatusBarUtil.setTranslucent(ImageStatusBarActivity.this, mAlpha);
+                StatusBarFits.setTranslucent(ImageStatusBarActivity.this, mAlpha);
                 mTvStatusAlpha.setText(String.valueOf(mAlpha));
             }
 
@@ -83,6 +83,6 @@ public class ImageStatusBarActivity extends BaseActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA);
+        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 }

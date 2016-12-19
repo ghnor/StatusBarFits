@@ -14,12 +14,12 @@
         android:layout_weight="1"
         android:orientation="vertical"/>
 
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+<!--    <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:bnbActiveColor="@color/white"
         app:bnbBackgroundColor="@color/colorPrimary"
-        app:bnbBackgroundStyle="background_style_static"/>
+        app:bnbBackgroundStyle="background_style_static"/>-->
 </LinearLayout>
