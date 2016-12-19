@@ -134,6 +134,10 @@ public class StatusBarFits {
         setTranslucent(activity, DEFAULT_STATUS_BAR_ALPHA);
     }
 
+    public static void setTranslucent(Activity activity, View needOffsetView) {
+        setTranslucent(activity, DEFAULT_STATUS_BAR_ALPHA, needOffsetView);
+    }
+
     /**
      * 使状态栏半透明
      *
@@ -143,10 +147,14 @@ public class StatusBarFits {
      * @param statusBarAlpha 状态栏透明度
      */
     public static void setTranslucent(Activity activity, int statusBarAlpha) {
+        setTranslucent(activity, statusBarAlpha, null);
+    }
+
+    public static void setTranslucent(Activity activity, int statusBarAlpha, View needOffsetView) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
-        setTransparent(activity);
+        setTransparent(activity, needOffsetView);
         addTranslucentView(activity, statusBarAlpha);
     }
 
@@ -156,12 +164,16 @@ public class StatusBarFits {
      * @param activity 需要设置的activity
      */
     public static void setTransparent(Activity activity) {
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-        if (decorView.getChildAt(0) == null) {
+        setTransparent(activity, null);
+    }
+
+    public static void setTransparent(Activity activity, View needOffsetView) {
+        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        if (contentView.getChildAt(0) == null) {
             return;
         }
-        if (decorView.getChildAt(0) instanceof DrawerLayout) {
-            DrawerLayout drawerLayout = (DrawerLayout) decorView.getChildAt(0);
+        if (contentView.getChildAt(0) instanceof DrawerLayout) {
+            DrawerLayout drawerLayout = (DrawerLayout) contentView.getChildAt(0);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 return;
             }
@@ -169,6 +181,10 @@ public class StatusBarFits {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+                if (needOffsetView != null) {
+                    activity.getWindow().getDecorView().setSystemUiVisibility(
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                }
             } else {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             }
@@ -182,7 +198,7 @@ public class StatusBarFits {
             // 设置属性
             setDrawerLayoutProperty(drawerLayout, contentLayout);
 
-        } else if (decorView.getChildAt(0) instanceof CoordinatorLayout) {
+        } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
 
 
         } else {
@@ -218,6 +234,18 @@ public class StatusBarFits {
      */
     private static void addTranslucentView(Activity activity, int statusBarAlpha) {
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        addTranslucentView(activity, statusBarAlpha, contentView);
+
+    }
+
+    /**
+     * 添加半透明矩形条
+     *
+     * @param activity       需要设置的 activity
+     * @param statusBarAlpha 透明值
+     * @param contentView    需要添加半透明遮罩的 ViewGroup
+     */
+    private static void addTranslucentView(Activity activity, int statusBarAlpha, ViewGroup contentView) {
         if (contentView.getChildCount() > 1) {
             contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
         } else {

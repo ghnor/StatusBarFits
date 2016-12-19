@@ -40,6 +40,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        StatusBarFits.setTransparent(this);
+//        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,7 +57,7 @@ public class MainActivity extends BaseActivity {
         mBtnSetColorForSwipeBack = (Button) findViewById(R.id.btn_set_color_for_swipe_back);
         mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        setSupportActionBar(mToolbar);
+//        setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open,
             R.string.navigation_drawer_close);
@@ -153,7 +158,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setStatusBar() {
-        mStatusBarColor = getResources().getColor(R.color.colorPrimary);
-        StatusBarFits.setColor(this, mStatusBarColor, mAlpha);
+//        mStatusBarColor = getResources().getColor(R.color.colorPrimary);
+//        StatusBarFits.setColor(this, mStatusBarColor, mAlpha);
     }
 }
