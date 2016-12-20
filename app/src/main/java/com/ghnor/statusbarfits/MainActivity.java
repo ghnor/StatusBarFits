@@ -42,8 +42,11 @@ public class MainActivity extends BaseActivity {
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        StatusBarFits.setTransparent(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        StatusBarFits.setTransparent(this, toolbar);
 //        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
+//        StatusBarUtil.setTransparentForImageView(this, toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
