@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_monkey"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/btn_change_background"
@@ -17,7 +16,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="16dp"
         android:text="Change Background"
-        android:visibility="gone"/>
+        android:visibility="invisible"/>
 
     <EditText
         android:layout_width="match_parent"
