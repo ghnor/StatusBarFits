@@ -4,8 +4,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_monkey"
-    android:orientation="vertical">
+    android:background="@drawable/bg_monkey">
 
     <Button
         android:id="@+id/btn_change_background"

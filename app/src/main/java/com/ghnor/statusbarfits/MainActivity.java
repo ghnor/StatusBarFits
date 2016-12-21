@@ -44,7 +44,8 @@ public class MainActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        StatusBarFits.setTransparent(this, toolbar);
+//        StatusBarFits.setTransparent(this, toolbar);
+        StatusBarFits.setTransparent(this);
 //        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
 //        StatusBarUtil.setTransparentForImageView(this, toolbar);
 
@@ -60,7 +61,7 @@ public class MainActivity extends BaseActivity {
         mBtnSetColorForSwipeBack = (Button) findViewById(R.id.btn_set_color_for_swipe_back);
         mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-//        setSupportActionBar(mToolbar);
+        setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open,
             R.string.navigation_drawer_close);

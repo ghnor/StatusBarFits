@@ -23,6 +23,39 @@ public class Utils {
     }
 
     /**
+     * 检查是否有底部导航栏
+     *
+     * @param context
+     * @return
+     */
+    public static boolean hasNavigationBar(Context context) {
+        int resIdShow = context.getResources().getIdentifier("config_showNavigationBar", "bool", "android");
+        boolean hasNavigationBar = false;
+        if(resIdShow > 0){
+            hasNavigationBar = context.getResources().getBoolean(resIdShow);
+        }
+        return hasNavigationBar;
+    }
+
+    /**
+     * 获取底部导航栏高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getNavigationBarHeight(Context context) {
+        if(hasNavigationBar(context)) {
+            int resIdNavigationBar = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            int navigationbarHeight = 0;
+            if (resIdNavigationBar > 0) {
+                navigationbarHeight = context.getResources().getDimensionPixelSize(resIdNavigationBar);
+            }
+            return navigationbarHeight;
+        }
+        return -1;
+    }
+
+    /**
      * 计算状态栏颜色
      *
      * @param color color值

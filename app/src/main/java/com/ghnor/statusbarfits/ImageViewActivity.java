@@ -62,7 +62,8 @@ public class ImageViewActivity extends BaseActivity {
     @Override
     protected void setStatusBar() {
         mViewNeedOffset = findViewById(R.id.view_need_offset);
-        StatusBarFits.setTransparent(this, mViewNeedOffset);
+//        StatusBarFits.setTransparent(this, mViewNeedOffset);
+        StatusBarFits.setTransparent(this);
 //        StatusBarFits.setTranslucentForImageView(this, mViewNeedOffset);
     }
 
