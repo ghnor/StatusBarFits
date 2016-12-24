@@ -168,6 +168,11 @@ public class StatusBarFits {
     }
 
     public static void setTransparent(Activity activity, View needOffsetView) {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return;
+        }
+
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
         if (contentView.getChildAt(0) == null) {
             return;
@@ -179,9 +184,6 @@ public class StatusBarFits {
             // DrawerLayout的内容布局会从屏幕最上方开始绘制，
             // 所以需要下移避免被状态栏遮挡的布局，手动设置marginTop。
             DrawerLayout drawerLayout = (DrawerLayout) contentView.getChildAt(0);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                return;
-            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -190,14 +192,14 @@ public class StatusBarFits {
 //                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
                 activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-                activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
+//                activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
             } else {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
 
             ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
-//            // 内容布局不是 LinearLayout 时,设置padding top
+            // 内容布局不是 LinearLayout 时,设置padding top
 //            if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
 //                contentLayout.getChildAt(1).setPadding(0, getStatusBarHeight(activity), 0, 0);
 //            }
@@ -206,12 +208,10 @@ public class StatusBarFits {
             setDrawerLayoutProperty(drawerLayout, contentLayout);
 
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
-
+            transparentStatusBar(activity);
+//            setCoordinatorLayoutProperty((CoordinatorLayout) contentView.getChildAt(0));
 
         } else {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                return;
-            }
             transparentStatusBar(activity);
 //            setFitsSystemWindows(activity);
         }
@@ -283,6 +283,10 @@ public class StatusBarFits {
         drawerLayoutContentLayout.setFitsSystemWindows(false);
         drawerLayoutContentLayout.setClipToPadding(true);
         drawer.setFitsSystemWindows(false);
+    }
+
+    private static void setCoordinatorLayoutProperty(CoordinatorLayout coordinatorLayoutProperty) {
+        coordinatorLayoutProperty.setFitsSystemWindows(false);
     }
 
 }

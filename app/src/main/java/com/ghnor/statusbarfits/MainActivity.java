@@ -13,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.ghnor.library.StatusBarFits;
+import com.jaeger.library.StatusBarUtil;
 
 /**
  * Created by ghnor on 16/12/14.
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private Button mBtnSetTransparent;
     private Button mBtnSetTranslucent;
     private Button mBtnSetForImageView;
+    private Button mBtnSetImageInCoor;
     private Button mBtnUseInFragment;
     private Button mBtnSetColorForSwipeBack;
 
@@ -45,8 +47,8 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 //        StatusBarFits.setTransparent(this, toolbar);
-        StatusBarFits.setTransparent(this);
-//        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
+//        StatusBarFits.setTransparent(this);
+        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
 //        StatusBarUtil.setTransparentForImageView(this, toolbar);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity {
         mBtnSetTransparent = (Button) findViewById(R.id.btn_set_transparent);
         mBtnSetTranslucent = (Button) findViewById(R.id.btn_set_translucent);
         mBtnSetForImageView = (Button) findViewById(R.id.btn_set_for_image_view);
+        mBtnSetImageInCoor = (Button) findViewById(R.id.btn_set_image_in_coor);
         mBtnUseInFragment = (Button) findViewById(R.id.btn_use_in_fragment);
         mBtnSetColorForSwipeBack = (Button) findViewById(R.id.btn_set_color_for_swipe_back);
         mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
@@ -98,6 +101,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ImageViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mBtnSetImageInCoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ImageInCoorActivity.class);
                 startActivity(intent);
             }
         });

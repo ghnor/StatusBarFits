@@ -8,134 +8,146 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:id="@+id/main"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="155dp"
-                android:src="@drawable/nav_header_bg"
-                android:scaleType="centerCrop"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="false">
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                android:layout_height="wrap_content">
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    android:layout_margin="16dp"/>
-            </FrameLayout>
-        </FrameLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/chb_translucent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Translucent"/>
-
-                <TextView
-                    android:id="@+id/tv_status_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="24sp"/>
-
-                <SeekBar
-                    android:id="@+id/sb_change_alpha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
-
-                <Button
-                    android:id="@+id/btn_set_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:text="Set Color"/>
-
-                <Button
-                    android:id="@+id/btn_set_transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Transparent"/>
-
-                <Button
-                    android:id="@+id/btn_set_translucent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Translucent"/>
-
-                <Button
-                    android:id="@+id/btn_set_for_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set For ImageView"/>
-
-                <Button
-                    android:id="@+id/btn_use_in_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Use In Fragment"/>
-
-                <Button
-                    android:id="@+id/btn_set_color_for_swipe_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Color For Swipe Back Page "/>
-
+                    android:layout_height="155dp"
+                    android:src="@drawable/nav_header_bg"
+                    android:scaleType="centerCrop"/>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true">
+                    android:fitsSystemWindows="false">
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/colorPrimary"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        android:layout_margin="16dp"/>
+                </FrameLayout>
+            </FrameLayout>
 
-                    <EditText
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/chb_translucent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Translucent"/>
+
+                    <TextView
+                        android:id="@+id/tv_status_alpha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp"/>
+
+                    <SeekBar
+                        android:id="@+id/sb_change_alpha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="测试是否会被遮挡"
-                        android:gravity="bottom"
-                        android:fitsSystemWindows="false"/>
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"/>
 
-                </FrameLayout>
+                    <Button
+                        android:id="@+id/btn_set_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
+                        android:text="Set Color"/>
 
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_set_transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set Transparent"/>
 
-        </android.support.v4.widget.NestedScrollView>
+                    <Button
+                        android:id="@+id/btn_set_translucent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set Translucent"/>
 
-    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_set_for_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set For ImageView"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set ImageView In Coor"
+                        android:id="@+id/btn_set_image_in_coor"/>
+
+                    <Button
+                        android:id="@+id/btn_use_in_fragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Use In Fragment"/>
+
+                    <Button
+                        android:id="@+id/btn_set_color_for_swipe_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set Color For Swipe Back Page "/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fitsSystemWindows="true">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="测试是否会被遮挡"
+                            android:gravity="bottom"
+                            android:fitsSystemWindows="false"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
