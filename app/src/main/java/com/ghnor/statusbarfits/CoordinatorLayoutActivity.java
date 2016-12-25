@@ -65,7 +65,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
                 if (mChangeTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(activity, mStatusBarAlpha, mToolbar);
                 } else {
-                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
+//                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
                 }
                 mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
             }
@@ -82,5 +82,6 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         });
         mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
+        StatusBarFits.setTranslucent(this, mToolbar);
     }
 }

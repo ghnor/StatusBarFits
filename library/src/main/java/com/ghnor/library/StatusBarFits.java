@@ -379,10 +379,14 @@ public class StatusBarFits {
      * @param contentView    需要添加半透明遮罩的 ViewGroup
      */
     private static void addTranslucentView(Activity activity, int statusBarAlpha, ViewGroup contentView) {
-        if (contentView.getChildCount() > 1) {
-            contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
-        } else {
-            contentView.addView(createTranslucentStatusBarView(activity, statusBarAlpha));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(Color.argb(statusBarAlpha, 0, 0, 0));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (contentView.getChildCount() > 1) {
+                contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
+            } else {
+                contentView.addView(createTranslucentStatusBarView(activity, statusBarAlpha));
+            }
         }
     }
 
