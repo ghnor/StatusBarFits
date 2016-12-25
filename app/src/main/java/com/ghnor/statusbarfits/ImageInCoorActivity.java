@@ -19,7 +19,8 @@ public class ImageInCoorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_in_coor);
 
-        StatusBarFits.setTransparent(this);
+//        StatusBarFits.setTransparent(this);
+        StatusBarFits.setTranslucent(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

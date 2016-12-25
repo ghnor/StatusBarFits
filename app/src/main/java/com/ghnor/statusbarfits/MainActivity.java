@@ -13,7 +13,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.ghnor.library.StatusBarFits;
-import com.jaeger.library.StatusBarUtil;
 
 /**
  * Created by ghnor on 16/12/14.
@@ -48,8 +47,13 @@ public class MainActivity extends BaseActivity {
 
 //        StatusBarFits.setTransparent(this, toolbar);
 //        StatusBarFits.setTransparent(this);
-        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
+//        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
 //        StatusBarUtil.setTransparentForImageView(this, toolbar);
+
+//        StatusBarFits.setTranslucent(this);
+        StatusBarFits.setColor(this);
+
+//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
@@ -68,7 +72,7 @@ public class MainActivity extends BaseActivity {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open,
             R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         mBtnSetColor.setOnClickListener(new View.OnClickListener() {
@@ -133,14 +137,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mChbTranslucent.isChecked()) {
-                    contentLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_monkey));
-                    StatusBarFits.setTranslucent(MainActivity.this, mAlpha);
-                    mToolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    StatusBarFits.setTranslucent(MainActivity.this, mToolbar);
                 } else {
-                    contentLayout.setBackgroundDrawable(null);
-                    mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    StatusBarFits.setColor(MainActivity.this,
-                        getResources().getColor(R.color.colorPrimary), mAlpha);
+                    StatusBarFits.setColor(MainActivity.this);
                 }
             }
         });
