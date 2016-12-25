@@ -36,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTvStatusAlpha;
 
     private int mStatusBarColor;
-    private int mAlpha = StatusBarFits.DEFAULT_STATUS_BAR_ALPHA;
+    private int mStatusBarAlpha = StatusBarFits.DEFAULT_STATUS_BAR_ALPHA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mStatusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     StatusBarFits.setTranslucent(MainActivity.this, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
-                    StatusBarFits.setColor(MainActivity.this, ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
+                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
 //                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
             }
@@ -138,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
         mSbChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mAlpha = progress;
+                mStatusBarAlpha = progress;
                 if (mChbTranslucent.isChecked()) {
-                    StatusBarFits.setTranslucent(MainActivity.this, mAlpha);
+                    StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
                 } else {
-//                    StatusBarFits.setColorFor(MainActivity.this, mStatusBarColor, mAlpha);
+                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
                 }
-                mTvStatusAlpha.setText(String.valueOf(mAlpha));
+                mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
             }
 
             @Override
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-        StatusBarFits.setColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        StatusBarFits.setColor(this, mStatusBarColor, mStatusBarAlpha);
 //        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 }

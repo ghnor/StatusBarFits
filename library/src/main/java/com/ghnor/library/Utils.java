@@ -74,6 +74,21 @@ public class Utils {
     }
 
     /**
+     * 减去额外的alpha获得真正的颜色
+     * @return
+     */
+    public static int calculateStatusColorSub(@ColorInt int color, int alpha) {
+        float a = 1 - alpha / 255f;
+        int red = color >> 16 & 0xff;
+        int green = color >> 8 & 0xff;
+        int blue = color & 0xff;
+        red = (int) (red / a + 0.5);
+        green = (int) (green / a + 0.5);
+        blue = (int) (blue / a + 0.5);
+        return 0xff << 24 | red << 16 | green << 8 | blue;
+    }
+
+    /**
      * 获取状态栏默认的颜色
      * 1. 在5.0及以下即colorPrimaryDark
      * 2. 在4.4及以下默认黑色

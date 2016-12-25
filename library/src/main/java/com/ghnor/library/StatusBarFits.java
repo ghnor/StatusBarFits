@@ -63,7 +63,8 @@ public class StatusBarFits {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
+            activity.getWindow().setStatusBarColor(Utils.calculateStatusColorSub(color, statusBarAlpha));
+//            activity.getWindow().setStatusBarColor(color);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -80,11 +81,13 @@ public class StatusBarFits {
             // 生成一个状态栏大小的矩形
             // 添加 statusBarView 到布局中
             ViewGroup drawerLayoutContent;
+            // 判断内容布局是否为ViewGroup
             if (drawerLayout.getChildAt(0) instanceof ViewGroup) {
                 drawerLayoutContent = (ViewGroup) drawerLayout.getChildAt(0);
             } else {
                 throw new UnsupportedOperationException("The content layout in DrawerLayout must be ViewGroup.");
             }
+            // 如果内容布局的第一个子View就是添加的StatusBarView直接设置颜色，否则先添加
             if (drawerLayoutContent.getChildCount() > 0 && drawerLayoutContent.getChildAt(0) instanceof StatusBarView) {
                 drawerLayoutContent.getChildAt(0).setBackgroundColor(color);
             } else {
@@ -95,7 +98,7 @@ public class StatusBarFits {
             if (!(drawerLayoutContent instanceof LinearLayout) &&
                     drawerLayoutContent.getChildAt(1) != null) {
 
-                if (drawerLayoutContent.getChildAt(1).getTag() == null ||
+                if (drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top) == null ||
                         (drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top) != null &&
                                 drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top).equals(TAG_REMOVE_TOP))) {
 
