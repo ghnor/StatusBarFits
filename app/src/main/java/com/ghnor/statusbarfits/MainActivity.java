@@ -20,9 +20,10 @@ import com.ghnor.library.StatusBarFits;
  * Created by ghnor on 16/12/14.
  */
 public class MainActivity extends AppCompatActivity {
+
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
-    private CheckBox mChbTranslucent;
+    private CheckBox mChangeTranslucent;
     private Button mBtnSetColor;
     private Button mBtnSetTransparent;
     private Button mBtnSetTranslucent;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtnSetColorForSwipeBack;
 
     private ViewGroup contentLayout;
-    private SeekBar mSbChangeAlpha;
+    private SeekBar mChangeAlpha;
     private TextView mTvStatusAlpha;
 
     private int mStatusBarColor;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mChbTranslucent = (CheckBox) findViewById(R.id.chb_translucent);
+        mChangeTranslucent = (CheckBox) findViewById(R.id.change_translucent);
         mBtnSetColor = (Button) findViewById(R.id.btn_set_color);
         mBtnSetTransparent = (Button) findViewById(R.id.btn_set_transparent);
         mBtnSetTranslucent = (Button) findViewById(R.id.btn_set_translucent);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnSetImageInCoor = (Button) findViewById(R.id.btn_set_image_in_coor);
         mBtnUseInFragment = (Button) findViewById(R.id.btn_use_in_fragment);
         mBtnSetColorForSwipeBack = (Button) findViewById(R.id.btn_set_color_for_swipe_back);
-        mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        mChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         setSupportActionBar(mToolbar);
 
@@ -123,10 +124,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mChbTranslucent.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.test_coordinator_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CoordinatorLayoutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mChangeTranslucent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mChbTranslucent.isChecked()) {
+                if (mChangeTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(MainActivity.this, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
@@ -136,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mSbChangeAlpha.setMax(255);
-        mSbChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mChangeAlpha.setMax(255);
+        mChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mStatusBarAlpha = progress;
-                if (mChbTranslucent.isChecked()) {
+                if (mChangeTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
                 } else {
                     StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
@@ -159,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
+        mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
         StatusBarFits.setColor(this, mStatusBarColor, mStatusBarAlpha);
 //        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);

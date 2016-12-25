@@ -23,6 +23,8 @@
         <activity android:name=".ImageInCoorActivity"/>
         <activity android:name=".UseInFragmentActivity"/>
         <activity android:name=".SwipeBackActivity"/>
+
+        <activity android:name=".CoordinatorLayoutActivity"/>
     </application>
 
 </manifest>

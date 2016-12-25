@@ -32,7 +32,7 @@ public class ColorStatusBarActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mBtnChangeColor = (Button) findViewById(R.id.btn_change_color);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        mSbChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
 
         // 设置toolbar
         setSupportActionBar(mToolbar);

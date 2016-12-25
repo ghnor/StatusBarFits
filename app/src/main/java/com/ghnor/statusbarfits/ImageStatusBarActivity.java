@@ -32,7 +32,7 @@ public class ImageStatusBarActivity extends BaseActivity {
         mRootLayout = (RelativeLayout) findViewById(R.id.root_layout);
         mBtnChangeBackground = (Button) findViewById(R.id.btn_change_background);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        mSbChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
 
         mBtnChangeBackground.setOnClickListener(new View.OnClickListener() {
             @Override

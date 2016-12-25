@@ -44,7 +44,7 @@
         tools:text="112"/>
 
     <SeekBar
-        android:id="@+id/sb_change_alpha"
+        android:id="@+id/change_alpha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"

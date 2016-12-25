@@ -30,7 +30,7 @@ public class ImageViewActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mViewNeedOffset = findViewById(R.id.view_need_offset);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
-        mSbChangeAlpha = (SeekBar) findViewById(R.id.sb_change_alpha);
+        mSbChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
 
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
