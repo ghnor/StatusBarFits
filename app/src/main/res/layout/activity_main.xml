@@ -33,7 +33,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
+                    android:fitsSystemWindows="false"
                     android:id="@+id/image_frame"
                     >
                     <android.support.v7.widget.Toolbar

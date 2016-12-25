@@ -103,11 +103,7 @@ public class StatusBarFits {
                             (ViewGroup.MarginLayoutParams) drawerLayoutContent.getChildAt(1).getLayoutParams();
                     layoutParams.topMargin += getStatusBarHeight(activity);
                     drawerLayoutContent.getChildAt(1).setLayoutParams(layoutParams);
-//                    drawerLayoutContent.getChildAt(1).setPadding(
-//                            drawerLayoutContent.getChildAt(1).getPaddingLeft(),
-//                            drawerLayoutContent.getChildAt(1).getPaddingTop() + getStatusBarHeight(activity),
-//                            drawerLayoutContent.getChildAt(1).getPaddingRight(),
-//                            drawerLayoutContent.getChildAt(1).getPaddingBottom());
+
                     drawerLayoutContent.getChildAt(1).setTag(R.id.tag_top, TAG_ADD_TOP);
                 }
             }
@@ -135,7 +131,7 @@ public class StatusBarFits {
     }
 
     /**
-     * 循环遍历找到之前添加了TopMargin的View
+     * 循环遍历找到之前添加了topMargin的View
      * @param context
      * @param contentView
      * @return
@@ -156,7 +152,7 @@ public class StatusBarFits {
     }
 
     /**
-     * 去掉该View上的TopMargin
+     * 去掉该View上的topMargin
      * @param context
      * @param offsetView
      */

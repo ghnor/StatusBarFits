@@ -2,8 +2,10 @@ package com.ghnor.statusbarfits;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import com.ghnor.library.StatusBarFits;
 /**
  * Created by ghnor on 16/12/14.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private CheckBox mChbTranslucent;
@@ -40,20 +42,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-//        StatusBarFits.setTransparent(this, toolbar);
-//        StatusBarFits.setTransparent(this);
-//        StatusBarUtil.setTransparentForDrawerLayout(this, drawerLayout);
-//        StatusBarUtil.setTransparentForImageView(this, toolbar);
-
-//        StatusBarFits.setTranslucent(this);
-        StatusBarFits.setColor(this);
-
-//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
@@ -138,8 +126,10 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 if (mChbTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(MainActivity.this, mToolbar);
+//                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
-                    StatusBarFits.setColor(MainActivity.this);
+                    StatusBarFits.setColor(MainActivity.this, ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark));
+//                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
             }
         });
@@ -168,11 +158,8 @@ public class MainActivity extends BaseActivity {
             }
         });
         mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
-    }
 
-    @Override
-    protected void setStatusBar() {
-//        mStatusBarColor = getResources().getColor(R.color.colorPrimary);
-//        StatusBarFits.setColor(this, mStatusBarColor, mAlpha);
+        StatusBarFits.setColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+//        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 }
