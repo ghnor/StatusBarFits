@@ -49,10 +49,12 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
 //                    StatusBarFits.setTranslucent(activity, mToolbar);
+//                    StatusBarFits.setColor(activity, mStatusBarColor);
                     StatusBarFits.setTransparent(activity, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
                     StatusBarFits.setColor(activity, mStatusBarColor);
+//                    StatusBarFits.setTransparent(activity, mToolbar);
 //                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
             }
@@ -83,7 +85,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         });
         mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-//        StatusBarFits.setTranslucent(this, mToolbar);
+//        StatusBarFits.setTransparent(activity, mToolbar);
         StatusBarFits.setColor(activity, mStatusBarColor);
     }
 }
