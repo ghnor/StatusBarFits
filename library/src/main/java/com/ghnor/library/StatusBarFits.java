@@ -63,8 +63,6 @@ public class StatusBarFits {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
-//            activity.getWindow().setStatusBarColor(color);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -118,7 +116,7 @@ public class StatusBarFits {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
-                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
                 ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
                 int count = decorView.getChildCount();
@@ -126,27 +124,44 @@ public class StatusBarFits {
                     decorView.getChildAt(count - 1)
                             .setBackgroundColor(Utils.calculateStatusColor(color, statusBarAlpha));
                 } else {
-                    StatusBarView statusView = createStatusBarView(activity, color, 0);
+                    StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
                     decorView.addView(statusView);
                 }
             }
-
+            setRootViewPaddingTop(activity, PaddingTop.addPaddingTop);
             setFitsSystemWindows(activity, true);
 
         } else {
-            ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-            int count = decorView.getChildCount();
-            if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
-                decorView.getChildAt(count - 1)
-                        .setBackgroundColor(Utils.calculateStatusColor(color, statusBarAlpha));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
+//                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
-                StatusBarView statusView = createStatusBarView(activity, color, 0);
-                decorView.addView(statusView);
+                ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+                int count = decorView.getChildCount();
+                if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
+                    decorView.getChildAt(count - 1)
+                            .setBackgroundColor(Utils.calculateStatusColor(color, statusBarAlpha));
+                } else {
+                    StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
+                    decorView.addView(statusView);
+                }
             }
             setFitsSystemWindows(activity, true);
         }
 
         findOffsetView(activity, contentView);
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static void clearPreviousSetting(Activity activity) {
+        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        int count = decorView.getChildCount();
+        if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
+            decorView.removeViewAt(count - 1);
+            ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+            rootView.setPadding(0, 0, 0, 0);
+        }
     }
 
     /**
@@ -264,21 +279,14 @@ public class StatusBarFits {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                activity.getWindow().getDecorView().setSystemUiVisibility(
-//                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
                 activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-//                activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
             } else {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
 
             ViewGroup drawerLayoutContent = (ViewGroup) drawerLayout.getChildAt(0);
             //如果DrawerLayout的内容布局第一个子View是我们自己的StatusBarView就将它reomve。
             if (drawerLayoutContent.getChildAt(0) instanceof StatusBarView) {
-//                drawerLayoutContent.getChildAt(0).setBackgroundColor(Color.TRANSPARENT);
                 drawerLayoutContent.removeViewAt(0);
             }
 
@@ -305,11 +313,12 @@ public class StatusBarFits {
             transparentStatusBar(activity);
 //            setCoordinatorLayoutProperty((CoordinatorLayout) contentView.getChildAt(0));
             removeStatusBarViewInDecorView(activity);
-            setFitsSystemWindows(activity, false);
+//            setRootViewPaddingTop(activity, PaddingTop.removePaddingTop);
+//            setFitsSystemWindows(activity, true);
 
         } else {
             transparentStatusBar(activity);
-//            setFitsSystemWindows(activity);
+            setFitsSystemWindows(activity, false);
         }
 
         if (needOffsetView != null && needOffsetView.getTag(R.id.tag_need_offset) == null) {
@@ -335,6 +344,41 @@ public class StatusBarFits {
         }
     }
 
+    private enum PaddingTop {
+        addPaddingTop,
+        removePaddingTop
+    }
+
+    private static void setRootViewPaddingTop(Activity activity, PaddingTop paddingTop) {
+        ViewGroup rootView =
+                (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+        if(ViewCompat.getFitsSystemWindows(rootView)) {
+            ViewCompat.setFitsSystemWindows();
+        }
+        if (paddingTop == PaddingTop.addPaddingTop) {
+            if (
+                    (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_REMOVE_TOP))) {
+                rootView.setPadding(
+                        rootView.getPaddingLeft(),
+                        rootView.getPaddingTop() + getStatusBarHeight(activity),
+                        rootView.getPaddingRight(),
+                        rootView.getPaddingBottom());
+                rootView.setTag(R.id.tag_top, TAG_ADD_TOP);
+            }
+        }
+        else if (paddingTop == PaddingTop.removePaddingTop) {
+            if (rootView.getTag(R.id.tag_top) == null ||
+                    (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_ADD_TOP))) {
+                rootView.setPadding(
+                        rootView.getPaddingLeft(),
+                        rootView.getPaddingTop() - getStatusBarHeight(activity),
+                        rootView.getPaddingRight(),
+                        rootView.getPaddingBottom());
+                rootView.setTag(R.id.tag_top, TAG_REMOVE_TOP);
+            }
+        }
+    }
+
     /**
      * 使状态栏透明
      */
@@ -342,20 +386,28 @@ public class StatusBarFits {
     private static void transparentStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            activity.getWindow().getDecorView().setSystemUiVisibility(
-//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             activity.getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-//            activity.getWindow().setNavigationBarColor(Color.TRANSPARENT);
         } else {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
+    /**
+     * 设置透明
+     */
+    private static void setTransparentForWindow(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            activity.getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            activity.getWindow()
+                    .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
@@ -406,6 +458,10 @@ public class StatusBarFits {
 
     private static void setCoordinatorLayoutProperty(CoordinatorLayout coordinatorLayoutProperty) {
         coordinatorLayoutProperty.setFitsSystemWindows(false);
+    }
+
+    private static void addContentPadding() {
+
     }
 
 }

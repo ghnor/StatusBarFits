@@ -48,10 +48,11 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
-                    StatusBarFits.setTranslucent(activity, mToolbar);
+//                    StatusBarFits.setTranslucent(activity, mToolbar);
+                    StatusBarFits.setTransparent(activity, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
-                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
+                    StatusBarFits.setColor(activity, mStatusBarColor);
 //                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
             }
@@ -63,7 +64,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mStatusBarAlpha = progress;
                 if (mChangeTranslucent.isChecked()) {
-                    StatusBarFits.setTranslucent(activity, mStatusBarAlpha, mToolbar);
+//                    StatusBarFits.setTranslucent(activity, mStatusBarAlpha, mToolbar);
                 } else {
 //                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
                 }
@@ -82,6 +83,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         });
         mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-        StatusBarFits.setTranslucent(this, mToolbar);
+//        StatusBarFits.setTranslucent(this, mToolbar);
+        StatusBarFits.setColor(activity, mStatusBarColor);
     }
 }
