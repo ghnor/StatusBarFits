@@ -77,60 +77,12 @@
                     android:layout_marginRight="16dp"/>
 
                 <Button
-                    android:id="@+id/btn_set_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:text="Set Color"/>
-
-                <Button
-                    android:id="@+id/btn_set_transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Transparent"/>
-
-                <Button
-                    android:id="@+id/btn_set_translucent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Translucent"/>
-
-                <Button
                     android:id="@+id/btn_set_for_image_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="4dp"
                     android:text="Set For ImageView"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set ImageView In Coor"
-                    android:id="@+id/btn_set_image_in_coor"/>
-
-                <Button
-                    android:id="@+id/btn_use_in_fragment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Use In Fragment"/>
-
-                <Button
-                    android:id="@+id/btn_set_color_for_swipe_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set Color For Swipe Back Page "/>
 
                 <Button
                     android:layout_width="wrap_content"

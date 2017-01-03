@@ -15,14 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ColorStatusBarActivity"
-            android:label="@string/app_name"/>
-        <activity android:name=".ImageStatusBarActivity"/>
         <activity android:name=".ImageViewActivity"/>
-        <activity android:name=".ImageInCoorActivity"/>
-        <activity android:name=".UseInFragmentActivity"/>
-        <activity android:name=".SwipeBackActivity"/>
 
         <activity android:name=".CoordinatorLayoutActivity"/>
     </application>

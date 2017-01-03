@@ -128,15 +128,19 @@ public class StatusBarFits {
                     decorView.addView(statusView);
                 }
             }
+
             setFitsSystemWindows(activity, true);
             ViewCompat.requestApplyInsets(contentView.getChildAt(0));
             setRootViewPaddingTop(activity, PaddingTop.addPaddingTop);
+
+//            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), true);
+//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
 
         } else {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
-//                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
                 ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
                 int count = decorView.getChildCount();
@@ -148,7 +152,10 @@ public class StatusBarFits {
                     decorView.addView(statusView);
                 }
             }
+
             setFitsSystemWindows(activity, true);
+            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
+            setRootViewPaddingTop(activity, PaddingTop.addPaddingTop);
         }
 
         findOffsetView(activity, contentView);
@@ -306,22 +313,28 @@ public class StatusBarFits {
                 drawerLayoutContent.getChildAt(0).setTag(R.id.tag_top, TAG_REMOVE_TOP);
             }
 
-//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
-
             // 设置属性
             setDrawerLayoutProperty(drawerLayout, drawerLayoutContent);
 
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
+
             transparentStatusBar(activity);
-//            setCoordinatorLayoutProperty((CoordinatorLayout) contentView.getChildAt(0));
             removeStatusBarViewInDecorView(activity);
             setRootViewPaddingTop(activity, PaddingTop.removePaddingTop);
 //            setFitsSystemWindows(activity, false);
 //            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
+//            contentView.getChildAt(0).requestLayout();
+
+//            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), false);
+//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
 
         } else {
             transparentStatusBar(activity);
-            setFitsSystemWindows(activity, false);
+            removeStatusBarViewInDecorView(activity);
+//            setRootViewPaddingTop(activity, PaddingTop.removePaddingTop);
+
+            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), false);
+            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
         }
 
         if (needOffsetView != null && needOffsetView.getTag(R.id.tag_need_offset) == null) {
@@ -454,14 +467,6 @@ public class StatusBarFits {
         drawerLayoutContent.setFitsSystemWindows(false);
         drawerLayoutContent.setClipToPadding(true);
         drawer.setFitsSystemWindows(false);
-    }
-
-    private static void setCoordinatorLayoutProperty(CoordinatorLayout coordinatorLayoutProperty) {
-        coordinatorLayoutProperty.setFitsSystemWindows(false);
-    }
-
-    private static void addContentPadding() {
-
     }
 
 }

@@ -53,10 +53,13 @@ public class ImageViewActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
-//                    StatusBarFits.setTranslucent(activity, mToolbar);
+
+//                    StatusBarFits.setColor(activity, mStatusBarColor);
                     StatusBarFits.setTransparent(activity, mToolbar);
+//                    StatusBarFits.setTranslucent(activity, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
+//                    StatusBarFits.setTransparent(activity, mToolbar);
                     StatusBarFits.setColor(activity, mStatusBarColor);
 //                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
@@ -84,17 +87,8 @@ public class ImageViewActivity extends BaseActivity {
         });
         mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-//        StatusBarFits.setColor(activity, mStatusBarColor);
-        StatusBarFits.setTranslucent(this, mToolbar);
-    }
-
-    @Override
-    protected void setStatusBar() {
-//        StatusBarFits.setTransparent(this, mViewNeedOffset);
-//        StatusBarFits.setTransparent(this);
-//        StatusBarFits.setTranslucentForImageView(this, mViewNeedOffset);
-
-//        StatusBarFits.setColor(activity, mStatusBarColor);
+//        StatusBarFits.setTransparent(activity, mToolbar);
+        StatusBarFits.setColor(activity, mStatusBarColor);
 //        StatusBarFits.setTranslucent(this, mToolbar);
     }
 
