@@ -96,16 +96,25 @@ public class StatusBarFits {
             if (!(drawerLayoutContent instanceof LinearLayout) &&
                     drawerLayoutContent.getChildAt(1) != null) {
 
-                if (drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top) == null ||
-                        (drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top) != null &&
-                                drawerLayoutContent.getChildAt(1).getTag(R.id.tag_top).equals(TAG_REMOVE_TOP))) {
+                View drawerLayoutContentReal = drawerLayoutContent.getChildAt(1);
 
-                    ViewGroup.MarginLayoutParams layoutParams =
-                            (ViewGroup.MarginLayoutParams) drawerLayoutContent.getChildAt(1).getLayoutParams();
-                    layoutParams.topMargin += getStatusBarHeight(activity);
-                    drawerLayoutContent.getChildAt(1).setLayoutParams(layoutParams);
+                if (drawerLayoutContentReal.getTag(R.id.tag_top) == null ||
+                        (drawerLayoutContentReal.getTag(R.id.tag_top) != null &&
+                                drawerLayoutContentReal.getTag(R.id.tag_top).equals(TAG_REMOVE_TOP))) {
 
-                    drawerLayoutContent.getChildAt(1).setTag(R.id.tag_top, TAG_ADD_TOP);
+                    drawerLayoutContentReal.setPadding(
+                            drawerLayoutContentReal.getPaddingLeft(),
+                            drawerLayoutContentReal.getPaddingTop() + getStatusBarHeight(activity),
+                            drawerLayoutContentReal.getPaddingRight(),
+                            drawerLayoutContentReal.getPaddingBottom()
+                    );
+
+//                    ViewGroup.MarginLayoutParams layoutParams =
+//                            (ViewGroup.MarginLayoutParams) drawerLayoutContentReal.getLayoutParams();
+//                    layoutParams.topMargin += getStatusBarHeight(activity);
+//                    drawerLayoutContentReal.setLayoutParams(layoutParams);
+
+                    drawerLayoutContentReal.setTag(R.id.tag_top, TAG_ADD_TOP);
                 }
             }
             // 设置属性
@@ -299,18 +308,27 @@ public class StatusBarFits {
                 drawerLayoutContent.removeViewAt(0);
             }
 
+            View drawerLayoutContentReal = drawerLayoutContent.getChildAt(0);
+
             // 内容布局不是 LinearLayout 时,清除多余的StatusBarHeight。
             if (!(drawerLayoutContent instanceof LinearLayout) &&
-                    drawerLayoutContent.getChildAt(0) != null &&
-                    drawerLayoutContent.getChildAt(0).getTag(R.id.tag_top) != null &&
-                    drawerLayoutContent.getChildAt(0).getTag(R.id.tag_top).equals(TAG_ADD_TOP)) {
+                    drawerLayoutContentReal != null &&
+                    drawerLayoutContentReal.getTag(R.id.tag_top) != null &&
+                    drawerLayoutContentReal.getTag(R.id.tag_top).equals(TAG_ADD_TOP)) {
 
-                ViewGroup.MarginLayoutParams layoutParams =
-                        (ViewGroup.MarginLayoutParams) drawerLayoutContent.getChildAt(0).getLayoutParams();
-                layoutParams.topMargin -= getStatusBarHeight(activity);
-                drawerLayoutContent.getChildAt(0).setLayoutParams(layoutParams);
+                drawerLayoutContentReal.setPadding(
+                        drawerLayoutContentReal.getPaddingLeft(),
+                        drawerLayoutContentReal.getPaddingTop() - getStatusBarHeight(activity),
+                        drawerLayoutContentReal.getPaddingRight(),
+                        drawerLayoutContentReal.getPaddingBottom()
+                );
 
-                drawerLayoutContent.getChildAt(0).setTag(R.id.tag_top, TAG_REMOVE_TOP);
+//                ViewGroup.MarginLayoutParams layoutParams =
+//                        (ViewGroup.MarginLayoutParams) drawerLayoutContentReal.getLayoutParams();
+//                layoutParams.topMargin -= getStatusBarHeight(activity);
+//                drawerLayoutContentReal.setLayoutParams(layoutParams);
+
+                drawerLayoutContentReal.setTag(R.id.tag_top, TAG_REMOVE_TOP);
             }
 
             // 设置属性

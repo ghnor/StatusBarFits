@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mBtnSetForImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ImageViewActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, ImageViewActivity.class);
+//                startActivity(intent);
             }
         });
 
