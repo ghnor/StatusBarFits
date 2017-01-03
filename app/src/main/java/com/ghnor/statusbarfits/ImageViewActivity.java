@@ -37,8 +37,6 @@ public class ImageViewActivity extends BaseActivity {
 
         mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
 
-        // 设置右滑动返回
-//        Slidr.attach(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         mSbChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
