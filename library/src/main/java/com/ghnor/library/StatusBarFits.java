@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import static com.ghnor.library.StatusBarView.createStatusBarView;
 import static com.ghnor.library.StatusBarView.createTranslucentStatusBarView;
-import static com.ghnor.library.Utils.getStatusBarHeight;
+import static com.ghnor.library.StatusBarUtils.getStatusBarHeight;
 
 /**
  * Created by ghnor on 2016/12/18.
@@ -36,7 +36,7 @@ public class StatusBarFits {
      * @param activity 需要设置的 activity
      */
     public static void setColor(Activity activity) {
-        setColor(activity, Utils.getDefaultStatusBarBackground(activity));
+        setColor(activity, StatusBarUtils.getDefaultStatusBarBackground(activity));
     }
 
     /**
@@ -121,14 +121,14 @@ public class StatusBarFits {
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
+                activity.getWindow().setStatusBarColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
                 ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
                 int count = decorView.getChildCount();
                 if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
                     decorView.getChildAt(count - 1)
-                            .setBackgroundColor(Utils.calculateStatusColor(color, statusBarAlpha));
+                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 } else {
                     StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
                     decorView.addView(statusView);
@@ -145,14 +145,14 @@ public class StatusBarFits {
         } else {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.getWindow().setStatusBarColor(Utils.calculateStatusColor(color, statusBarAlpha));
+                activity.getWindow().setStatusBarColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
                 ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
                 int count = decorView.getChildCount();
                 if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
                     decorView.getChildAt(count - 1)
-                            .setBackgroundColor(Utils.calculateStatusColor(color, statusBarAlpha));
+                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 } else {
                     StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
                     decorView.addView(statusView);

@@ -8,7 +8,7 @@ import android.support.annotation.ColorInt;
  * Created by ghnor on 2016/12/18.
  */
 
-public class Utils {
+public class StatusBarUtils {
 
     /**
      * 获取状态栏高度

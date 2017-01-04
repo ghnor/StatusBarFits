@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import static com.ghnor.library.Utils.getStatusBarHeight;
+import static com.ghnor.library.StatusBarUtils.getStatusBarHeight;
 
 /**
  * Created by ghnor on 2016/12/18.
@@ -52,7 +52,7 @@ public class StatusBarView extends View {
         FrameLayout.LayoutParams params =
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
-        statusBarView.setBackgroundColor(Utils.calculateStatusColor(color, alpha));
+        statusBarView.setBackgroundColor(StatusBarUtils.calculateStatusColor(color, alpha));
         return statusBarView;
     }
 
