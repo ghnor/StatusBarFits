@@ -7,110 +7,110 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_frame"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             >
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="155dp"
-                android:src="@drawable/nav_header_bg"
-                android:scaleType="centerCrop"
-                android:id="@+id/image"
-                />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="false"
-                android:id="@+id/image_frame"
+                android:id="@+id/main_frame"
                 >
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    android:layout_margin="16dp"
+                    android:layout_height="155dp"
+                    android:src="@drawable/nav_header_bg"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/image"
                     />
-            </FrameLayout>
-        </FrameLayout>
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <CheckBox
-                    android:id="@+id/change_translucent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Translucent"/>
-
-                <TextView
-                    android:id="@+id/tv_status_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="24sp"/>
-
-                <SeekBar
-                    android:id="@+id/change_alpha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
-
-                <Button
-                    android:id="@+id/btn_set_for_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="Set For ImageView"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:text="CoordinatorLayout"
-                    android:id="@+id/test_coordinator_layout"/>
-
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true">
+                    android:fitsSystemWindows="false"
+                    android:id="@+id/image_frame"
+                    >
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/colorPrimary"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        android:layout_margin="16dp"
+                        />
+                </FrameLayout>
+            </FrameLayout>
 
-                    <EditText
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/change_translucent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Translucent"/>
+
+                    <TextView
+                        android:id="@+id/tv_status_alpha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="24sp"/>
+
+                    <SeekBar
+                        android:id="@+id/change_alpha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="测试是否会被遮挡"
-                        android:gravity="bottom"
-                        android:fitsSystemWindows="false"/>
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"/>
 
-                </FrameLayout>
+                    <Button
+                        android:id="@+id/btn_set_for_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="Set For ImageView"/>
 
-            </LinearLayout>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="4dp"
+                        android:text="CoordinatorLayout"
+                        android:id="@+id/test_coordinator_layout"/>
 
-        </android.support.v4.widget.NestedScrollView>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fitsSystemWindows="true">
 
-    </LinearLayout>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="测试是否会被遮挡"
+                            android:gravity="bottom"
+                            android:fitsSystemWindows="false"/>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"

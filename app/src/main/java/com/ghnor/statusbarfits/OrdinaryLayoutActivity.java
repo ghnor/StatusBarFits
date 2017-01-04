@@ -53,8 +53,7 @@ public class OrdinaryLayoutActivity extends BaseActivity {
                 if (mChangeTranslucent.isChecked()) {
 
 //                    StatusBarFits.setColor(activity, mStatusBarColor);
-                    StatusBarFits.setTransparent(activity, mToolbar);
-//                    StatusBarFits.setTranslucent(activity, mToolbar);
+                    StatusBarFits.setTranslucent(activity, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
 //                    StatusBarFits.setTransparent(activity, mToolbar);

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mStatusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark);
+        mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         contentLayout = (ViewGroup) findViewById(R.id.main);
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mBtnSetForImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ImageViewActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, OrdinaryLayoutActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -83,14 +83,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mChangeAlpha.setMax(255);
+        mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
         mChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mStatusBarAlpha = progress;
                 if (mChangeTranslucent.isChecked()) {
-                    StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
+//                    StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
                 } else {
-                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
+//                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
                 }
                 mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
             }
@@ -105,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-        StatusBarFits.setColor(this, mStatusBarColor, mStatusBarAlpha);
+        StatusBarFits.setColor(this, mStatusBarColor);
 //        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
     }
 }

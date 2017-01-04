@@ -48,9 +48,9 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
-//                    StatusBarFits.setTranslucent(activity, mToolbar);
+                    StatusBarFits.setTranslucent(activity, mToolbar);
 //                    StatusBarFits.setColor(activity, mStatusBarColor);
-                    StatusBarFits.setTransparent(activity, mToolbar);
+//                    StatusBarFits.setTransparent(activity, mToolbar);
 //                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
                     StatusBarFits.setColor(activity, mStatusBarColor);
