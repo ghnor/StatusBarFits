@@ -51,23 +51,24 @@ public class OrdinaryLayoutActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
-
-//                    StatusBarFits.setColor(activity, mStatusBarColor);
                     StatusBarFits.setTranslucent(activity, mToolbar);
-//                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
-//                    StatusBarFits.setTransparent(activity, mToolbar);
-                    StatusBarFits.setColor(activity, mStatusBarColor);
-//                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
+                    StatusBarFits.setColor(activity, mStatusBarColor, mAlpha);
                 }
             }
         });
 
         mSbChangeAlpha.setMax(255);
+        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
         mSbChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mAlpha = progress;
+                if (mChangeTranslucent.isChecked()) {
+                    StatusBarFits.setTranslucent(activity, mAlpha, mToolbar);
+                } else {
+                    StatusBarFits.setColor(activity, mStatusBarColor, mAlpha);
+                }
                 mTvStatusAlpha.setText(String.valueOf(mAlpha));
             }
 
@@ -81,11 +82,8 @@ public class OrdinaryLayoutActivity extends BaseActivity {
 
             }
         });
-        mSbChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-//        StatusBarFits.setTransparent(activity, mToolbar);
-        StatusBarFits.setColor(activity, mStatusBarColor);
-//        StatusBarFits.setTranslucent(this, mToolbar);
+        StatusBarFits.setColor(activity, mStatusBarColor, mAlpha);
     }
 
     @Override

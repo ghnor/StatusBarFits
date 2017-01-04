@@ -49,26 +49,22 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(activity, mToolbar);
-//                    StatusBarFits.setColor(activity, mStatusBarColor);
-//                    StatusBarFits.setTransparent(activity, mToolbar);
-//                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
-                    StatusBarFits.setColor(activity, mStatusBarColor);
-//                    StatusBarFits.setTransparent(activity, mToolbar);
-//                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
+                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
                 }
             }
         });
 
         mChangeAlpha.setMax(255);
+        mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
         mChangeAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mStatusBarAlpha = progress;
                 if (mChangeTranslucent.isChecked()) {
-//                    StatusBarFits.setTranslucent(activity, mStatusBarAlpha, mToolbar);
+                    StatusBarFits.setTranslucent(activity, mStatusBarAlpha, mToolbar);
                 } else {
-//                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
+                    StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
                 }
                 mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
             }
@@ -83,9 +79,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
 
             }
         });
-        mChangeAlpha.setProgress(StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
 
-//        StatusBarFits.setTransparent(activity, mToolbar);
-        StatusBarFits.setColor(activity, mStatusBarColor);
+        StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
     }
 }

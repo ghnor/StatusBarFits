@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private CheckBox mChangeTranslucent;
     private Button mBtnSetForImageView;
-    private ViewGroup contentLayout;
     private SeekBar mChangeAlpha;
     private TextView mTvStatusAlpha;
 
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        contentLayout = (ViewGroup) findViewById(R.id.main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mChangeTranslucent = (CheckBox) findViewById(R.id.change_translucent);
         mBtnSetForImageView = (Button) findViewById(R.id.btn_set_for_image_view);
@@ -74,10 +71,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mChangeTranslucent.isChecked()) {
                     StatusBarFits.setTranslucent(MainActivity.this, mToolbar);
-//                    StatusBarUtil.setTranslucentForDrawerLayout(MainActivity.this, mDrawerLayout);
                 } else {
                     StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
-//                    StatusBarUtil.setColorForDrawerLayout(MainActivity.this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
                 }
             }
         });
@@ -89,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mStatusBarAlpha = progress;
                 if (mChangeTranslucent.isChecked()) {
-//                    StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
+                    StatusBarFits.setTranslucent(MainActivity.this, mStatusBarAlpha);
                 } else {
-//                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
+                    StatusBarFits.setColor(MainActivity.this, mStatusBarColor, mStatusBarAlpha);
                 }
                 mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
             }
@@ -107,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        StatusBarFits.setColor(this, mStatusBarColor);
-//        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, StatusBarFits.DEFAULT_STATUS_BAR_ALPHA);
+        StatusBarFits.setColor(this, mStatusBarColor, mStatusBarAlpha);
     }
 }

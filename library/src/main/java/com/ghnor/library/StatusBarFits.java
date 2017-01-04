@@ -109,17 +109,14 @@ public class StatusBarFits {
                             drawerLayoutContentReal.getPaddingBottom()
                     );
 
-//                    ViewGroup.MarginLayoutParams layoutParams =
-//                            (ViewGroup.MarginLayoutParams) drawerLayoutContentReal.getLayoutParams();
-//                    layoutParams.topMargin += getStatusBarHeight(activity);
-//                    drawerLayoutContentReal.setLayoutParams(layoutParams);
-
                     drawerLayoutContentReal.setTag(R.id.tag_top, TAG_ADD_TOP);
                 }
             }
+
             // 设置属性
             setDrawerLayoutProperty(drawerLayout, drawerLayoutContent);
-            addTranslucentView(activity, statusBarAlpha);
+            addTranslucentViewForDrawerLayout(activity, statusBarAlpha);
+//            addTranslucentView(activity, statusBarAlpha);
 
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
 
@@ -168,69 +165,6 @@ public class StatusBarFits {
         }
 
         findOffsetView(activity, contentView);
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private static void clearPreviousSetting(Activity activity) {
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-        int count = decorView.getChildCount();
-        if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
-            decorView.removeViewAt(count - 1);
-            ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
-            rootView.setPadding(0, 0, 0, 0);
-        }
-    }
-
-    /**
-     * 循环遍历找到之前添加了topMargin的View
-     * @param context
-     * @param contentView
-     * @return
-     */
-    private static View findOffsetView(Context context, ViewGroup contentView) {
-        for(int count = 0; count < contentView.getChildCount(); count++) {
-            if (contentView.getChildAt(count).getTag(R.id.tag_need_offset) != null &&
-                    contentView.getChildAt(count).getTag(R.id.tag_need_offset).equals(TAG_NEED_OFFNET)) {
-                removeOffsetMargin(context, contentView.getChildAt(count));
-                return contentView.getChildAt(count);
-            } else {
-                if (contentView.getChildAt(count) instanceof ViewGroup) {
-                    findOffsetView(context, (ViewGroup) contentView.getChildAt(count));
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 去掉该View上的topMargin
-     * @param context
-     * @param offsetView
-     */
-    private static void removeOffsetMargin(Context context, View offsetView) {
-        ViewGroup.MarginLayoutParams layoutParams =
-                (ViewGroup.MarginLayoutParams) offsetView.getLayoutParams();
-        layoutParams.topMargin -= getStatusBarHeight(context);
-
-        offsetView.setTag(R.id.tag_need_offset, null);
-    }
-
-    /**
-     * 为DecorView的子View设置FitsSystemWindows
-     * @param activity
-     */
-    private static void setFitsSystemWindows(Activity activity, boolean b) {
-        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
-        for (int i = 0, count = contentView.getChildCount(); i < count; i++) {
-            View childView = contentView.getChildAt(i);
-            ViewCompat.setFitsSystemWindows(childView, b);
-            if (childView instanceof ViewGroup) {
-//                childView.setFitsSystemWindows(b);
-                if (b) {
-                    ((ViewGroup) childView).setClipToPadding(true);
-                }
-            }
-        }
     }
 
     /**
@@ -287,6 +221,9 @@ public class StatusBarFits {
         if (contentView.getChildAt(0) == null) {
             return;
         }
+        else if (contentView.getChildCount() > 1 && contentView.getChildAt(1) instanceof StatusBarView) {
+            contentView.removeViewAt(1);
+        }
         if (contentView.getChildAt(0) instanceof DrawerLayout) {
             // 让DrawerLayout中的布局内容可以延伸到状态栏
             // 为了实现上述效果，设置DrawerLayout以及两个子View的fitsSystemWindows为false
@@ -322,11 +259,6 @@ public class StatusBarFits {
                         drawerLayoutContentReal.getPaddingRight(),
                         drawerLayoutContentReal.getPaddingBottom()
                 );
-
-//                ViewGroup.MarginLayoutParams layoutParams =
-//                        (ViewGroup.MarginLayoutParams) drawerLayoutContentReal.getLayoutParams();
-//                layoutParams.topMargin -= getStatusBarHeight(activity);
-//                drawerLayoutContentReal.setLayoutParams(layoutParams);
 
                 drawerLayoutContentReal.setTag(R.id.tag_top, TAG_REMOVE_TOP);
             }
@@ -485,6 +417,74 @@ public class StatusBarFits {
         drawerLayoutContent.setFitsSystemWindows(false);
         drawerLayoutContent.setClipToPadding(true);
         drawer.setFitsSystemWindows(false);
+    }
+
+    /**
+     * 为DrawerLayout添加半透明矩形条
+     * 在某些手机上，5.0以上系统的setStatusBar的高度与获取到的不一致
+     *
+     * @param activity       需要设置的 activity
+     * @param statusBarAlpha 透明值
+     */
+    private static void addTranslucentViewForDrawerLayout(Activity activity, int statusBarAlpha) {
+        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        if (contentView.getChildCount() > 1) {
+            contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
+        } else {
+            contentView.addView(createTranslucentStatusBarView(activity, statusBarAlpha));
+        }
+    }
+
+    /**
+     * 循环遍历找到之前添加了topMargin的View
+     * @param context
+     * @param contentView
+     * @return
+     */
+    private static View findOffsetView(Context context, ViewGroup contentView) {
+        for(int count = 0; count < contentView.getChildCount(); count++) {
+            if (contentView.getChildAt(count).getTag(R.id.tag_need_offset) != null &&
+                    contentView.getChildAt(count).getTag(R.id.tag_need_offset).equals(TAG_NEED_OFFNET)) {
+                removeOffsetMargin(context, contentView.getChildAt(count));
+                return contentView.getChildAt(count);
+            } else {
+                if (contentView.getChildAt(count) instanceof ViewGroup) {
+                    findOffsetView(context, (ViewGroup) contentView.getChildAt(count));
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 去掉该View上的topMargin
+     * @param context
+     * @param offsetView
+     */
+    private static void removeOffsetMargin(Context context, View offsetView) {
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) offsetView.getLayoutParams();
+        layoutParams.topMargin -= getStatusBarHeight(context);
+
+        offsetView.setTag(R.id.tag_need_offset, null);
+    }
+
+    /**
+     * 为DecorView的子View设置FitsSystemWindows
+     * @param activity
+     */
+    private static void setFitsSystemWindows(Activity activity, boolean b) {
+        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        for (int i = 0, count = contentView.getChildCount(); i < count; i++) {
+            View childView = contentView.getChildAt(i);
+            ViewCompat.setFitsSystemWindows(childView, b);
+            if (childView instanceof ViewGroup) {
+//                childView.setFitsSystemWindows(b);
+                if (b) {
+                    ((ViewGroup) childView).setClipToPadding(true);
+                }
+            }
+        }
     }
 
 }
