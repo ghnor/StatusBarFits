@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
@@ -17,7 +16,7 @@ import com.ghnor.library.StatusBarFits;
  * Created by ghnor on 2016/12/24.
  */
 
-public class CoordinatorLayoutActivity extends AppCompatActivity {
+public class CoordinatorLayoutActivity extends BaseActivity {
 
     private Activity activity;
 

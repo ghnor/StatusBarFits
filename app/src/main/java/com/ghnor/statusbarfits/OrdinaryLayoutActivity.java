@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -26,7 +25,7 @@ public class OrdinaryLayoutActivity extends BaseActivity {
     private CheckBox mChangeTranslucent;
 
     private int mStatusBarColor;
-    private int mAlpha;
+    private int mAlpha = StatusBarFits.DEFAULT_STATUS_BAR_ALPHA;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,11 +85,4 @@ public class OrdinaryLayoutActivity extends BaseActivity {
         StatusBarFits.setColor(activity, mStatusBarColor, mAlpha);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
