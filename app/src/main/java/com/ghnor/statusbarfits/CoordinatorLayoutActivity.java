@@ -79,6 +79,8 @@ public class CoordinatorLayoutActivity extends BaseActivity {
             }
         });
 
+        mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
+
         StatusBarFits.setColor(activity, mStatusBarColor, mStatusBarAlpha);
     }
 }

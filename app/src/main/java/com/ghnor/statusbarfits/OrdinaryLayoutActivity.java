@@ -82,6 +82,8 @@ public class OrdinaryLayoutActivity extends BaseActivity {
             }
         });
 
+        mTvStatusAlpha.setText(String.valueOf(mAlpha));
+
         StatusBarFits.setColor(activity, mStatusBarColor, mAlpha);
     }
 

@@ -101,6 +101,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        mTvStatusAlpha.setText(String.valueOf(mStatusBarAlpha));
+
         StatusBarFits.setColor(this, mStatusBarColor, mStatusBarAlpha);
     }
 }
