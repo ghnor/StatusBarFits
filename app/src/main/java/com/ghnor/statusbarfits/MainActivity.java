@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private CheckBox mChangeTranslucent;
-    private Button mBtnSetForImageView;
     private SeekBar mChangeAlpha;
     private TextView mTvStatusAlpha;
 
@@ -34,12 +32,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
+        mStatusBarColor = ContextCompat.getColor(this, R.color.colorPrimary);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mChangeTranslucent = (CheckBox) findViewById(R.id.change_translucent);
-        mBtnSetForImageView = (Button) findViewById(R.id.btn_set_for_image_view);
         mChangeAlpha = (SeekBar) findViewById(R.id.change_alpha);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);
         setSupportActionBar(mToolbar);
@@ -49,7 +46,7 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mBtnSetForImageView.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imgv_ordinary_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, OrdinaryLayoutActivity.class);
@@ -57,7 +54,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.test_coordinator_layout).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imgv_coordinator_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CoordinatorLayoutActivity.class);

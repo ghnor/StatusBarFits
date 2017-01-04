@@ -34,7 +34,7 @@ public class OrdinaryLayoutActivity extends BaseActivity {
 
         activity = this;
 
-        mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
+        mStatusBarColor = ContextCompat.getColor(this, R.color.colorPrimary);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvStatusAlpha = (TextView) findViewById(R.id.tv_status_alpha);

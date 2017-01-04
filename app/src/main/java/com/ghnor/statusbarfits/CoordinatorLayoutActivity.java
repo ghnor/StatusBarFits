@@ -35,7 +35,7 @@ public class CoordinatorLayoutActivity extends BaseActivity {
 
         activity = this;
 
-        mStatusBarColor = ContextCompat.getColor(this, R.color.colorAccent);
+        mStatusBarColor = ContextCompat.getColor(this, R.color.colorPrimary);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

@@ -24,10 +24,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
+                android:background="@color/colorPrimary"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:navigationIcon="?attr/homeAsUpIndicator"/>
+                app:navigationIcon="?attr/homeAsUpIndicator"
+                android:layout_margin="16dp"/>
         </FrameLayout>
     </FrameLayout>
 
@@ -60,7 +61,8 @@
         android:layout_weight="1"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_alignParentBottom="true"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:visibility="gone">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
