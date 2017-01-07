@@ -29,13 +29,24 @@ StatusBarFits.setColor(activity);
 
 ### 设置状态栏颜色
 
+```
+StatusBarFits.setColor();
+```
+
 ||设置状态栏颜色|
 |-----|--------------------------------------|
 |DrawerLayout - close|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_drawer_close.png"/>|
 |DrawerLayout - open|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_drawer_open.png"/>|
 |Other|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_ordinary.png"/>|
 
-### 设置状态栏半透明
+### 设置状态栏半透明或透明
+
+```
+StatusBarFits.setTranslucent();
+```
+```
+StatusBarFits.setTransparent();
+```
 
 ||设置状态栏半透明|
 |-----|--------------------------------------|
