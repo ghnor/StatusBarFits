@@ -16,11 +16,18 @@ compile 'com.ghnor:statusbarfits:1.0.0'
 </dependency>
 ```
 ## 示例
-
-||API 19(Kitkat 4.4)|API 21(Lollipop 5.0)|
-|-----|------------------|--------------------|
-|DrawerLayout - open|||
-
+### 设置状态栏颜色
+||设置状态栏颜色|
+|-----|--------------------------------------|
+|DrawerLayout - close|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_drawer_close.png"/>|
+|DrawerLayout - open|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_drawer_open.png"/>|
+|Other|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/color_ordinary.png"/>|
+### 设置状态栏半透明
+||设置状态栏半透明|
+|-----|--------------------------------------|
+|DrawerLayout - close|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_drawer_close.png"/>|
+|DrawerLayout - open|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_drawer_open.png"/>|
+|Other|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_ordinary.png"/>|
 ## 用法
 在`setContentView()`方法之后调用：
 ```java
