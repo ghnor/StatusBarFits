@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.novoda.bintray-release'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
@@ -29,4 +31,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
+}
+
+publish {
+    userOrg = 'ghnor-org'//bintray.com用户名
+    groupId = 'com.ghnor'//jcenter上的路径
+    artifactId = 'statusbarfits'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'Adapter above 4.4 version of the status bar'//描述，不重要
+    website = 'https://github.com/ghnor/StatusBarFits/tree/master'//网站，不重要
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
 }
