@@ -23,6 +23,7 @@ setContentView(R.layout.main_activity);
 ...
 StatusBarFits.setColor(activity);
 ```
+如果布局是`DrawerLayout`，需要设置`android:fitsSystemWindows="true"`。
 
 ## 示例
 
