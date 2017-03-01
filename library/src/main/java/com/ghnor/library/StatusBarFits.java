@@ -1,6 +1,5 @@
 package com.ghnor.library;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,12 +13,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import static com.ghnor.library.StatusBarUtils.getStatusBarHeight;
 import static com.ghnor.library.StatusBarView.createStatusBarView;
 import static com.ghnor.library.StatusBarView.createTranslucentStatusBarView;
-import static com.ghnor.library.StatusBarUtils.getStatusBarHeight;
 
 /**
  * Created by ghnor on 2016/12/18.
+ * ghnor.me@gmail.com
  */
 
 public class StatusBarFits {
@@ -116,7 +116,6 @@ public class StatusBarFits {
             // 设置属性
             setDrawerLayoutProperty(drawerLayout, drawerLayoutContent);
             addTranslucentViewForDrawerLayout(activity, statusBarAlpha);
-//            addTranslucentView(activity, statusBarAlpha);
 
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
 
@@ -124,23 +123,18 @@ public class StatusBarFits {
                 activity.getWindow().setStatusBarColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
-                ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-                int count = decorView.getChildCount();
-                if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
-                    decorView.getChildAt(count - 1)
-                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
-                } else {
+                int indexOfStatusBarViewInContent = findStatusBarViewInContent(contentView);
+                if (indexOfStatusBarViewInContent == -1) {
                     StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
-                    decorView.addView(statusView);
+                    contentView.addView(statusView);
+                } else {
+                    contentView.getChildAt(indexOfStatusBarViewInContent)
+                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 }
             }
 
-            setFitsSystemWindows(activity, true);
-            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
+            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), true);
             setRootViewPaddingTop(activity, PaddingTop.addPaddingTop);
-
-//            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), true);
-//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
 
         } else {
 
@@ -148,18 +142,17 @@ public class StatusBarFits {
                 activity.getWindow().setStatusBarColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             } else {
-                ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-                int count = decorView.getChildCount();
-                if (count > 0 && decorView.getChildAt(count - 1) instanceof StatusBarView) {
-                    decorView.getChildAt(count - 1)
-                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
-                } else {
+                int indexOfStatusBarViewInContent = findStatusBarViewInContent(contentView);
+                if (indexOfStatusBarViewInContent == -1) {
                     StatusBarView statusView = createStatusBarView(activity, color, statusBarAlpha);
-                    decorView.addView(statusView);
+                    contentView.addView(statusView);
+                } else {
+                    contentView.getChildAt(indexOfStatusBarViewInContent)
+                            .setBackgroundColor(StatusBarUtils.calculateStatusColor(color, statusBarAlpha));
                 }
             }
 
-            setFitsSystemWindows(activity, true);
+            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), true);
             ViewCompat.requestApplyInsets(contentView.getChildAt(0));
             setRootViewPaddingTop(activity, PaddingTop.addPaddingTop);
         }
@@ -252,14 +245,12 @@ public class StatusBarFits {
                     drawerLayoutContentReal != null &&
                     drawerLayoutContentReal.getTag(R.id.tag_top) != null &&
                     drawerLayoutContentReal.getTag(R.id.tag_top).equals(TAG_ADD_TOP)) {
-
                 drawerLayoutContentReal.setPadding(
                         drawerLayoutContentReal.getPaddingLeft(),
                         drawerLayoutContentReal.getPaddingTop() - getStatusBarHeight(activity),
                         drawerLayoutContentReal.getPaddingRight(),
                         drawerLayoutContentReal.getPaddingBottom()
                 );
-
                 drawerLayoutContentReal.setTag(R.id.tag_top, TAG_REMOVE_TOP);
             }
 
@@ -269,19 +260,10 @@ public class StatusBarFits {
         } else if (contentView.getChildAt(0) instanceof CoordinatorLayout) {
 
             transparentStatusBar(activity);
-            removeStatusBarViewInDecorView(activity);
             setRootViewPaddingTop(activity, PaddingTop.removePaddingTop);
-//            setFitsSystemWindows(activity, false);
-//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
-//            contentView.getChildAt(0).requestLayout();
-
-//            ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), false);
-//            ViewCompat.requestApplyInsets(contentView.getChildAt(0));
 
         } else {
             transparentStatusBar(activity);
-            removeStatusBarViewInDecorView(activity);
-//            setRootViewPaddingTop(activity, PaddingTop.removePaddingTop);
 
             ViewCompat.setFitsSystemWindows(contentView.getChildAt(0), false);
             ViewCompat.requestApplyInsets(contentView.getChildAt(0));
@@ -301,15 +283,6 @@ public class StatusBarFits {
         }
     }
 
-    private static void removeStatusBarViewInDecorView(Activity activity) {
-        ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
-        for (int index = 0; index < decorView.getChildCount(); index++) {
-            if (decorView.getChildAt(index) instanceof StatusBarView) {
-                decorView.removeViewAt(index);
-            }
-        }
-    }
-
     private enum PaddingTop {
         addPaddingTop,
         removePaddingTop
@@ -321,6 +294,9 @@ public class StatusBarFits {
         if (paddingTop == PaddingTop.addPaddingTop) {
             if (!ViewCompat.getFitsSystemWindows(rootView) ||
                     (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_REMOVE_TOP))) {
+                if (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_ADD_TOP)) {
+                    return;
+                }
                 rootView.setPadding(
                         rootView.getPaddingLeft(),
                         rootView.getPaddingTop() + getStatusBarHeight(activity),
@@ -332,6 +308,9 @@ public class StatusBarFits {
         else if (paddingTop == PaddingTop.removePaddingTop) {
             if (ViewCompat.getFitsSystemWindows(rootView) ||
                     (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_ADD_TOP))) {
+                if (rootView.getTag(R.id.tag_top) != null && rootView.getTag(R.id.tag_top).equals(TAG_REMOVE_TOP)) {
+                    return;
+                }
                 rootView.setPadding(
                         rootView.getPaddingLeft(),
                         rootView.getPaddingTop() - getStatusBarHeight(activity),
@@ -345,7 +324,6 @@ public class StatusBarFits {
     /**
      * 使状态栏透明
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     private static void transparentStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -383,7 +361,6 @@ public class StatusBarFits {
     private static void addTranslucentView(Activity activity, int statusBarAlpha) {
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
         addTranslucentView(activity, statusBarAlpha, contentView);
-
     }
 
     /**
@@ -406,20 +383,6 @@ public class StatusBarFits {
     }
 
     /**
-     * 设置 DrawerLayout 属性
-     *
-     * @param drawerLayout              DrawerLayout
-     * @param drawerLayoutContent DrawerLayout 的内容布局
-     */
-    private static void setDrawerLayoutProperty(DrawerLayout drawerLayout, ViewGroup drawerLayoutContent) {
-        ViewGroup drawer = (ViewGroup) drawerLayout.getChildAt(1);
-        drawerLayout.setFitsSystemWindows(false);
-        drawerLayoutContent.setFitsSystemWindows(false);
-        drawerLayoutContent.setClipToPadding(true);
-        drawer.setFitsSystemWindows(false);
-    }
-
-    /**
      * 为DrawerLayout添加半透明矩形条
      * 在某些手机上，5.0以上系统的setStatusBar的高度与获取到的不一致
      *
@@ -433,6 +396,20 @@ public class StatusBarFits {
         } else {
             contentView.addView(createTranslucentStatusBarView(activity, statusBarAlpha));
         }
+    }
+
+    /**
+     * 设置 DrawerLayout 属性
+     *
+     * @param drawerLayout              DrawerLayout
+     * @param drawerLayoutContent DrawerLayout 的内容布局
+     */
+    private static void setDrawerLayoutProperty(DrawerLayout drawerLayout, ViewGroup drawerLayoutContent) {
+        ViewGroup drawer = (ViewGroup) drawerLayout.getChildAt(1);
+        drawerLayout.setFitsSystemWindows(false);
+        drawerLayoutContent.setFitsSystemWindows(false);
+        drawerLayoutContent.setClipToPadding(true);
+        drawer.setFitsSystemWindows(false);
     }
 
     /**
@@ -479,12 +456,24 @@ public class StatusBarFits {
             View childView = contentView.getChildAt(i);
             ViewCompat.setFitsSystemWindows(childView, b);
             if (childView instanceof ViewGroup) {
-//                childView.setFitsSystemWindows(b);
                 if (b) {
                     ((ViewGroup) childView).setClipToPadding(true);
                 }
             }
         }
+    }
+
+    /**
+     * 找到Content中的StatusBarView
+     * @param contentView
+     */
+    private static int findStatusBarViewInContent(ViewGroup contentView) {
+        for (int index = 0; index < contentView.getChildCount(); index++) {
+            if (contentView.getChildAt(index) instanceof StatusBarView) {
+                return index;
+            }
+        }
+        return -1;
     }
 
 }

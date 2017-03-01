@@ -6,6 +6,7 @@ import android.support.annotation.ColorInt;
 
 /**
  * Created by ghnor on 2016/12/18.
+ * ghnor.me@gmail.com
  */
 
 public class StatusBarUtils {
