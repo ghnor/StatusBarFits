@@ -3,7 +3,7 @@
 
 ## Gradle
 ```
-compile 'com.ghnor:statusbarfits:1.0.0'
+compile 'com.ghnor:statusbarfits:1.1.0'
 ```
 
 ## Maven
@@ -11,7 +11,7 @@ compile 'com.ghnor:statusbarfits:1.0.0'
 <dependency>
   <groupId>com.ghnor</groupId>
   <artifactId>statusbarfits</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <type>pom</type>
 </dependency>
 ```
@@ -53,3 +53,6 @@ StatusBarFits.setTransparent();
 |DrawerLayout - close|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_drawer_close.png"/>|
 |DrawerLayout - open|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_drawer_open.png"/>|
 |Other|<img src="https://github.com/ghnor/StatusBarFits/blob/master/imgs/translucent_ordinary.png"/>|
+
+## Thanks
+[laobie/StatusBarUtil](https://github.com/laobie/StatusBarUtil)
